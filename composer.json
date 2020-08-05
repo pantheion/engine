@@ -1,0 +1,17 @@
+{
+    "name": "pantheion/engine",
+    "description": "Engine base",
+    "authors": [
+        {
+            "name": "Pedro Miguel",
+            "email": "pedro.aos19@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pantheion\\Engine\\": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
