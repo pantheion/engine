@@ -10,8 +10,14 @@
     "autoload": {
         "psr-4": {
             "Pantheion\\Engine\\": ""
-        }
+        },
+        "files": [
+            "helpers.php"
+        ]
     },
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "hassankhan/config": "dev-master",
+        "vlucas/phpdotenv": "^5.1@dev"
+    }
 }
