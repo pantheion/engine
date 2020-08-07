@@ -10,10 +10,7 @@
     "autoload": {
         "psr-4": {
             "Pantheion\\Engine\\": ""
-        },
-        "files": [
-            "helpers.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "require": {
