@@ -36,6 +36,11 @@ class Application
         return $this->container->make($class, $params);
     }
 
+    public function isBound(string $class)
+    {
+        return $this->container->isBound($class);
+    }
+
     protected function basicBindings()
     {
         $this->container->bind('config', function() {

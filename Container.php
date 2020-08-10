@@ -67,4 +67,9 @@ class Container
     {
         return $binding($this, $params);
     }
+
+    public function isBound($class)
+    {
+        return isset($this->bindings[$class]);
+    }
 }
