@@ -14,9 +14,11 @@ class Application
     public function __construct()
     {
         $this->container = Container::get();
-        
-        $this->basicBindings();
-        $this->loadEnv();
+
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.env')) {
+            $this->basicBindings();
+            $this->loadEnv();
+        }
     }
 
     public function bind(string $class, \Closure $binding)
