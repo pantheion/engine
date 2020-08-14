@@ -4,6 +4,9 @@ namespace Pantheion\Engine;
 
 use Dotenv\Dotenv;
 use Noodlehaus\Config;
+use Pantheion\Http\Request;
+use Pantheion\Routing\RouteMapper;
+use Pantheion\Routing\Router;
 
 class Application
 {
@@ -16,9 +19,12 @@ class Application
         $this->container = Container::get();
 
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '.env')) {
-            $this->basicBindings();
-            $this->loadEnv();
+            $this->basic();
+            $this->loadEnvFile();
         }
+
+        $this->routing();
+        $this->http();
     }
 
     public function bind(string $class, \Closure $binding)
@@ -41,19 +47,25 @@ class Application
         return $this->container->isBound($class);
     }
 
-    protected function basicBindings()
+    protected function basic()
     {
-        $this->container->bind('config', function() {
-            return new Config(Application::PATH_CONFIG);
-        }, true);
-
-        $this->container->bind('env', function () {
-            return Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
-        }, true);
+        $this->container->bind('config', fn() => new Config(Application::PATH_CONFIG), true);
+        $this->container->bind('env', fn() => Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']), true);
     }
 
-    protected function loadEnv()
+    protected function loadEnvFile()
     {
         $this->container->make('env')->load();
+    }
+
+    protected function routing()
+    {
+        $this->container->bind(Router::class, fn() => new Router, true);
+        $this->container->bind(RouteMapper::class, fn() => new RouteMapper($this->make(Router::class)), true);
+    }
+
+    protected function http()
+    {
+        $this->container->bind('request', fn() => Request::capture(), true);
     }
 }

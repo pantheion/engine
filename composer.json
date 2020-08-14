@@ -15,6 +15,7 @@
     "minimum-stability": "dev",
     "require": {
         "hassankhan/config": "dev-master",
-        "vlucas/phpdotenv": "^5.1@dev"
+        "vlucas/phpdotenv": "^5.1@dev",
+        "pantheion/routing": "dev-master"
     }
 }
