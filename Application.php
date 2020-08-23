@@ -4,6 +4,8 @@ namespace Pantheion\Engine;
 
 use Dotenv\Dotenv;
 use Noodlehaus\Config;
+use Pantheion\Database\Connection;
+use Pantheion\Database\Manager;
 use Pantheion\Http\Request;
 use Pantheion\Routing\RouteMapper;
 use Pantheion\Routing\Router;
@@ -25,6 +27,7 @@ class Application
 
         $this->routing();
         $this->http();
+        $this->database();
     }
 
     public function bind(string $class, \Closure $binding)
@@ -67,5 +70,23 @@ class Application
     protected function http()
     {
         $this->container->bind('request', fn() => Request::capture(), true);
+    }
+
+    protected function database()
+    {
+        $this->container->bind(Manager::class, function() {
+            $driver = "mysql";
+            return new Manager($driver);
+        });
+
+        $this->container->bind(Connection::class, function() {
+            return $this->container->make(Manager::class)->connect([
+                'host' => 'localhost',
+                'port' => '3306',
+                'database' => 'zephyr',
+                'user' => 'root',
+                'password' => '',
+            ]);
+        });
     }
 }
