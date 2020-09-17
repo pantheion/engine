@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Noodlehaus\Config;
 use Pantheion\Database\Connection;
 use Pantheion\Database\Manager;
+use Pantheion\Database\Table\Manager as TableManager;
 use Pantheion\Http\Request;
 use Pantheion\Routing\RouteMapper;
 use Pantheion\Routing\Router;
@@ -77,7 +78,7 @@ class Application
         $this->container->bind(Manager::class, function() {
             $driver = "mysql";
             return new Manager($driver);
-        });
+        }, true);
 
         $this->container->bind(Connection::class, function() {
             return $this->container->make(Manager::class)->connect([
@@ -87,6 +88,10 @@ class Application
                 'user' => 'root',
                 'password' => '',
             ]);
-        });
+        }, true);
+
+        $this->container->bind(TableManager::class, function() {
+            return new TableManager;
+        }, true);
     }
 }
