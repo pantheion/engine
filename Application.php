@@ -7,9 +7,13 @@ use Noodlehaus\Config;
 use Pantheion\Database\Connection;
 use Pantheion\Database\Manager;
 use Pantheion\Database\Table\Manager as TableManager;
+use Pantheion\Database\Migration\Manager as MigrationManager;
+use Pantheion\Database\Seed\Manager as SeedManager;
 use Pantheion\Http\Request;
 use Pantheion\Routing\RouteMapper;
 use Pantheion\Routing\Router;
+use Pantheion\Session\Session;
+use Pantheion\Session\SessionFileHandler;
 
 class Application
 {
@@ -26,6 +30,11 @@ class Application
             $this->loadEnvFile();
         }
 
+        if(file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "storage/session")) {
+            $this->session();
+        }
+
+        // $this->session();
         $this->routing();
         $this->http();
         $this->database();
@@ -90,8 +99,17 @@ class Application
             ]);
         }, true);
 
-        $this->container->bind(TableManager::class, function() {
-            return new TableManager;
+        $this->container->bind(TableManager::class, fn() => new TableManager, true);
+        $this->container->bind(MigrationManager::class, fn() => new MigrationManager, true);
+        $this->container->bind(SeedManager::class, fn() => new SeedManager, true);
+    }
+
+    public function session()
+    {
+        $this->container->bind(SessionFileHandler::class, fn() => new SessionFileHandler, true);
+
+        $this->container->bind(Session::class, function() {
+            new Session($this->container->make(SessionFileHandler::class));
         }, true);
     }
 }
