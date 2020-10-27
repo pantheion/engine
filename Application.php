@@ -30,11 +30,10 @@ class Application
             $this->loadEnvFile();
         }
 
-        if(file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "storage/session")) {
+        if(file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "storage/sessions")) {
             $this->session();
         }
 
-        // $this->session();
         $this->routing();
         $this->http();
         $this->database();
