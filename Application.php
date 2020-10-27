@@ -108,7 +108,7 @@ class Application
         $this->container->bind(SessionFileHandler::class, fn() => new SessionFileHandler, true);
 
         $this->container->bind(Session::class, function() {
-            new Session($this->container->make(SessionFileHandler::class));
+            return new Session($this->container->make(SessionFileHandler::class));
         }, true);
     }
 }
