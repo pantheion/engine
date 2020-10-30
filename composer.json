@@ -18,6 +18,7 @@
         "vlucas/phpdotenv": "^5.1@dev",
         "pantheion/routing": "dev-master",
         "pantheion/database": "dev-master",
-        "pantheion/session": "dev-master"
+        "pantheion/session": "dev-master",
+        "pantheion/logging": "dev-master"
     }
 }

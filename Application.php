@@ -9,11 +9,13 @@ use Pantheion\Database\Manager;
 use Pantheion\Database\Table\Manager as TableManager;
 use Pantheion\Database\Migration\Manager as MigrationManager;
 use Pantheion\Database\Seed\Manager as SeedManager;
+use Pantheion\Http\Client\Client;
 use Pantheion\Http\Request;
 use Pantheion\Routing\RouteMapper;
 use Pantheion\Routing\Router;
 use Pantheion\Session\Session;
 use Pantheion\Session\SessionFileHandler;
+use Pantheion\Logging\Manager as LogManager;
 
 class Application
 {
@@ -79,6 +81,7 @@ class Application
     protected function http()
     {
         $this->container->bind('request', fn() => Request::capture(), true);
+        $this->container->bind(Client::class, fn() => new Client, true);
     }
 
     protected function database()
@@ -110,5 +113,10 @@ class Application
         $this->container->bind(Session::class, function() {
             return new Session($this->container->make(SessionFileHandler::class));
         }, true);
+    }
+
+    public function logging()
+    {
+        $this->container->bind(LogManager::class, fn() => new LogManager, true);
     }
 }
