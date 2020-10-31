@@ -9,6 +9,7 @@ use Pantheion\Database\Manager;
 use Pantheion\Database\Table\Manager as TableManager;
 use Pantheion\Database\Migration\Manager as MigrationManager;
 use Pantheion\Database\Seed\Manager as SeedManager;
+use Pantheion\Hashing\Hash;
 use Pantheion\Http\Client\Client;
 use Pantheion\Http\Request;
 use Pantheion\Routing\RouteMapper;
@@ -39,6 +40,8 @@ class Application
         $this->routing();
         $this->http();
         $this->database();
+        $this->logging();
+        $this->hashing();
     }
 
     public function bind(string $class, \Closure $binding)
@@ -118,5 +121,10 @@ class Application
     public function logging()
     {
         $this->container->bind(LogManager::class, fn() => new LogManager, true);
+    }
+
+    public function hashing()
+    {
+        $this->container->bind(Hash::class, fn() => new Hash, true);
     }
 }

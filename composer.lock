@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ebd670be103cd689d99425a11c1f314",
+    "content-hash": "62d918fe4becc4778ad72e7e4aadfba8",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1071,6 +1071,36 @@
             ],
             "description": "Filesystem",
             "time": "2020-10-23T14:55:07+00:00"
+        },
+        {
+            "name": "pantheion/hashing",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pantheion/hashing.git",
+                "reference": "2b2a22bd29c9a8cf1fdc89d9ffcde8c710462b5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pantheion/hashing/zipball/2b2a22bd29c9a8cf1fdc89d9ffcde8c710462b5c",
+                "reference": "2b2a22bd29c9a8cf1fdc89d9ffcde8c710462b5c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pantheion\\Hashing\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Pedro Miguel",
+                    "email": "pedro.aos19@gmail.com"
+                }
+            ],
+            "description": "Hash stuff",
+            "time": "2020-10-31T10:59:01+00:00"
         },
         {
             "name": "pantheion/helpers",
@@ -2215,7 +2245,8 @@
         "pantheion/routing": 20,
         "pantheion/database": 20,
         "pantheion/session": 20,
-        "pantheion/logging": 20
+        "pantheion/logging": 20,
+        "pantheion/hashing": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
