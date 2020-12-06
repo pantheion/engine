@@ -24,6 +24,9 @@ class Application
 
     protected $container;
 
+    /**
+     * Application constructor function
+     */
     public function __construct()
     {
         $this->container = Container::get();
